@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title *ngIf="currentMovie">{{currentMovie.Titre}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding *ngIf="currentMovie">
+  <div class="detail-film">
+    <div class="detail-film-container">
+      <div class="backdrop-container">
+        <img *ngIf="currentMovie.BackDropPath != null" [src]="currentMovie.BackDropPath">
+      </div>
+      <div class="title-container">
+        <div class="left">
+          <img *ngIf="currentMovie.PosterPath != null" [src]="currentMovie.PosterPath">
+        </div>
+        <div class="right">
+          <ion-row class="movie-title">
+            <ion-col>
+              <h1 no-margin>{{currentMovie.Titre}}</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row class="movie-original-title">
+            <ion-col>
+              <h5 no-margin>{{currentMovie.TitreOriginal}}</h5>
+            </ion-col>
+          </ion-row>
+          <ion-row class="genres-film" *ngIf="currentMovie.Genres" no-padding text-end>
+            <ion-col no-padding><span *ngFor="let genre of currentMovie.Genres" class="separateur">{{genre.Value}}</span></ion-col>
+          </ion-row>
+          <ion-row class="genres-film" *ngIf="currentMovie.Realisateurs" no-padding text-end>
+            <ion-col no-padding><span>Réalisateur</span><span *ngIf="currentMovie.Realisateurs.length > 1">s</span><span>
+                : </span><span *ngFor="let real of currentMovie.Realisateurs" class="separateur">{{real.Value}}</span></ion-col>
+          </ion-row>
+        </div>
+      </div>
+      <div class="other-detail">
+        <ion-row class="genres-film" no-padding text-end>
+          <ion-col no-padding><span *ngIf="currentMovie.Duree">{{currentMovie.Duree}} minutes | </span>{{currentMovie.ProductionYear}}</ion-col>
+        </ion-row>
+        <ion-row no-padding class="genres-film">
+          <ion-col no-padding>
+            <span class="note">{{currentMovie.Note}}</span><span class="note-max"> / 10</span>
+          </ion-col>
+          <ion-col [ngSwitch]="currentMovie.VideoFormat" no-padding text-end>
+          <span *ngSwitchCase="'BDRip'">
+              Bluray Rip
+          </span>
+          <span *ngSwitchCase="'1080p'">
+              Mkv 1080p
+          </span>
+          <span *ngSwitchDefault>
+            Autre
+          </span>
+          </ion-col>          
+        </ion-row>
+        <ion-row no-padding class="genres-film chemin-film">
+          <ion-col no-padding>Chemin du film : {{getFTPFolder(currentMovie.MovieDirectory)}}</ion-col>
+        </ion-row>
+      </div>
+      <div class="synopsis">
+        <ion-row no-padding>
+          <p>{{currentMovie.Resume}}</p>
+        </ion-row>
+      </div>
+      <div class="casting-container">
+        <ion-card color="light">
+          <ion-card-header>
+            Casting
+          </ion-card-header>
+          <ion-card-content no-padding class="casting-items">
+            
+                <div class="casting-item" *ngFor="let cast of currentMovie.Casting">
+                    <img *ngIf="cast.ImagePath != null" [src]="cast.ImagePath">
+                    <img *ngIf="cast.ImagePath == null" src="./assets/imgs/john-doe.png">
+                    <div class="casting-name">
+                        <span>{{cast.Value}}</span>
+                    </div>              
+                  </div>
+            
+            <!-- <ion-item *ngFor="let cast of currentMovie.Casting">
+                <ion-avatar item-start>
+                    <img *ngIf="cast.ImagePath != null" [src]="cast.ImagePath">
+                </ion-avatar>              
+              {{cast.Value}}
+            </ion-item> -->
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</ion-content>

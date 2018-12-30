@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <!-- <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> -->
+    <ion-title *ngIf="!displaySearchText" text-start>
+      Zorglob's Movies
+      <!-- <span *ngIf="selectedSortName">, trié par {{selectedSortName}}</span><span *ngIf="selectedGenre != genreTous">, filtré par {{selectedGenre}}</span> -->
+    </ion-title>
+    <ion-searchbar *ngIf="displaySearchText" (ionInput)="onSearchByKeyword($event)" [(ngModel)]="searchText"
+      [showCancelButton]="false" [debounce]="1000" [placeholder]="'Rechercher un titre'"></ion-searchbar>
+    <ion-buttons end>
+      <button *ngIf="!displaySearchText" ion-button icon-only (click)="toggleSearchText(true)">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button *ngIf="displaySearchText" ion-button icon-only (click)="toggleSearchText(false)">
+        <ion-icon name="close"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="sort($event)">
+        <ion-icon name="icon-sort"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="filter($event)">
+        <ion-icon name="icon-filter"></ion-icon>
+        <span *ngIf="selectedGenre != genreTous" class="badge-filter-selected">!</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="primary">
+  <section class="section">
+    <div class="zorg-movies-list">
+      <ng-container *ngFor="let movie of movies">
+        <div class="item" (click)="detailFilm(movie)" no-padding *ngIf="movie.MovieDetailId">
+          <img *ngIf="movie.PosterPath != null" [src]="movie.PosterPath" />
+          <div class="item__details" *ngIf="movie.VideoFormat == 'BDRip'">
+            <span>Blu-Ray</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement en cours...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

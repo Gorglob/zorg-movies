@@ -1,0 +1,123 @@
+page-home {
+    img {
+        min-width: 100%;
+        min-height: 100%;
+        background-image: url(../assets/imgs/loading.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    
+    ion-content .scroll-content{
+        background: #000000;
+    }
+
+    ion-title {        
+        span {
+            font-size: 0.7em;
+        }
+    }
+    
+    .zorg-filter {
+        max-width: 115px;
+    }
+    
+    .zorg-navigate-button {
+        max-width: 15px;
+    }
+
+    .badge-filter-selected {
+        position: absolute;
+        right: 0px;
+        background: orange;
+        color: white;
+        width: 13px;
+        height: 13px;
+        border-radius: 100%;
+        top: 3px;
+    }
+
+    .bluray-disc {        
+        position: relative;
+        height: 20px;
+        bottom: 100%;
+        background-color: #0b6f91;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        justify-items: center;
+        color: white;
+        font-weight: bold;
+        font-style: italic;
+        text-shadow: 2px 2px 2px black;
+        margin: 0px 5px;
+        -webkit-box-shadow: 2px 2px 4px black;
+        box-shadow: 2px 2px 4px black;        
+    }
+
+    .zorg-movies-list {
+    display: -ms-grid;
+    display: grid;  
+    grid-template-columns: repeat(auto-fit, minmax(140px, 140px));
+    grid-auto-rows: 200px;
+    grid-auto-flow: row dense;
+    }
+    
+    .item {        
+    display: -webkit-box;        
+    display: -ms-flexbox;        
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;                
+    -ms-grid-column: auto;                
+        grid-column-start: auto;
+    -ms-grid-row: auto;
+        grid-row-start: auto;
+    color: #fff;                
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;                
+    transition: -webkit-transform 0.3s ease-in-out;                
+    -o-transition: transform 0.3s ease-in-out;                
+    transition: transform 0.3s ease-in-out;                
+    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    cursor: pointer;
+    counter-increment: item-counter;
+    position: relative;
+
+    img {
+        width: 150px;
+        height: 200px;
+        border: 0;
+        -o-object-fit: fill;
+        object-fit: fill; 
+        top: 0px;       
+    }
+
+    &__details {
+        position: absolute;
+        z-index: 1;
+        padding: 2px;
+        color: #444;
+        background: #0a6f91;            
+        color: white;
+        text-align: center;
+        text-shadow: 2px 2px 2px black;
+        -webkit-box-shadow: 2px 2px 4px black;
+        box-shadow: 2px 2px 4px black;
+        bottom: 8px;
+        margin: 0px 4px;
+        width: calc(100% - 8px);
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<ion-list radio-group *ngIf="items">
+  <ion-list-header *ngIf="titre">
+    {{titre}}
+  </ion-list-header>
+  <ion-item *ngFor="let item of items">
+      <ion-label>{{item.Value}}</ion-label>
+      <ion-radio value="{{item.Id}}" (ionSelect)="select(item)" [checked]="item.Value == selected"></ion-radio>
+  </ion-item>  
+</ion-list>
+<!-- <ion-list no-margin>
+  <ion-list-header>
+    <h2>Options d'affichage</h2>
+  </ion-list-header>
+  <ion-item>
+    <ion-label>Trier</ion-label>
+    <ion-select [(ngModel)]="selectedSortName" interface="popover" *ngIf="sortNames">
+      <ion-option *ngFor="let sortName of sortNames" value="sortName">{{sortName}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Filtrer un Genre</ion-label>
+    <ion-select [(ngModel)]="selectedGenre" interface="popover">
+      <ion-option *ngFor="let genre of genres" value="genre.Id">{{genre.Value}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <button ion-button clear item-start (click)="close()">Annuler</button>
+    <button ion-button item-end color="secondary" (click)="apply()">Appliquer</button>
+  </ion-item>
+</ion-list> -->
