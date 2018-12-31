@@ -126,6 +126,7 @@ export class HomePage implements OnInit {
   // }
 
   updateMoviesList(infiniteScroll?: InfiniteScroll) {
+    console.info("updateMoviesList 1");
     this.showLoading();
     this.pageSize = 100;
 

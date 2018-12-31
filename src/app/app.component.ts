@@ -1,3 +1,4 @@
+import { ErrorPage } from './../pages/error/error';
 import { ZorglobConfigService } from './../services/zorglobConfigService';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
@@ -13,27 +14,40 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private zorglobConfigService: ZorglobConfigService) {
-    this.initializeApp();
-    this.zorglobConfigService.getGenres();
-    this.zorglobConfigService.getSortNames();
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private zorglobConfigService: ZorglobConfigService) {
+    this.zorglobConfigService.initApiUrls().then((response) => {
+      if(response){
+        this.zorglobConfigService.getGenres();
+        this.zorglobConfigService.getSortNames().then(() => {
+          this.rootPage = HomePage;
+          this.initializeApp();
+        });
+      }
+      else {
+        this.rootPage = ErrorPage;
+        this.initializeApp();
+      }      
+    });
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      // { title: 'List', component: ListPage },
+      { title: 'Erreur', component: ErrorPage }
     ];
 
   }
 
   initializeApp() {
+    console.info("initializeApp 1");
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      console.info("initializeApp 2");      
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

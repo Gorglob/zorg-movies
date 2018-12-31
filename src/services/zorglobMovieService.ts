@@ -1,3 +1,4 @@
+import { ZorglobConfigService } from './zorglobConfigService';
 import { Movie } from './../dto/Movie';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
@@ -9,7 +10,8 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ZorglobMovieService {
-    private moviessUrl = (window.location.hostname.indexOf("gorglob") === -1 ? 'http://zorg-serv2012:925' : 'http://gorglob.synology.me:91') + '/api/movies'; //URL to web api
+    private moviessUrl: string;
+    //private moviessUrl: string;
     //private moviessUrl = 'http://gorglob.synology.me:91/api/movies'; //URL to web api
     //private moviessUrl = 'http://localhost:925/api/movies'; //URL to web api
     //private moviessUrl = 'http://localhost:57685/api/movies'; //URL to web api
@@ -17,9 +19,10 @@ export class ZorglobMovieService {
     //private moviessUrl = 'http://localhost:57685/api/movies'
     //private headers = new Headers({ 'Content-Type': 'application/json' });
 
-    constructor(private http: Http) { 
+    constructor(private http: Http, private zorglobConfigService:ZorglobConfigService) { 
         //window.location.hostname.indexOf("int-maestro")        
         //console.info("HOST", this.moviessUrl);
+        this.moviessUrl = zorglobConfigService.getApiUrl("movies");
     }
 
     getMovies(pageSize: number, pageIndex: number):Promise<Movie[]>{
@@ -68,6 +71,7 @@ export class ZorglobMovieService {
     }
 
     getMoviesSorted(pageSize: number, pageIndex: number, sortName: string, asc: boolean):Promise<Movie[]>{
+        console.info("getMoviesSorted");
         return this.http.get(this.moviessUrl, {
             params: {
                 pageSize,

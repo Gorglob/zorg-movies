@@ -5,3 +5,4 @@ export const LIST_SORTNAMES = "LS_listSortNames";
 export const GENRE_TOUS = "Tous";
 export const DEFAULT_SORT_NAME = "Nouveautés";
 export const SORT_TITRE_VALUE = "Titre";
+export const DEFAULT_API_URL = "defaultApiUrl";

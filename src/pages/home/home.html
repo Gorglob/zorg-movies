@@ -27,19 +27,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding color="primary">
-  <section class="section">
-    <div class="zorg-movies-list">
-      <ng-container *ngFor="let movie of movies">
-        <div class="item" (click)="detailFilm(movie)" no-padding *ngIf="movie.MovieDetailId">
-          <img *ngIf="movie.PosterPath != null" [src]="movie.PosterPath" />
-          <div class="item__details" *ngIf="movie.VideoFormat == 'BDRip'">
-            <span>Blu-Ray</span>
-          </div>
+<ion-content color="primary">  
+  <div class="zorg-movies-list">
+    <ng-container *ngFor="let movie of movies">
+      <div class="item" (click)="detailFilm(movie)" no-padding *ngIf="movie.MovieDetailId">
+        <img *ngIf="movie.PosterPath != null" [src]="movie.PosterPath" />
+        <div class="item__details" *ngIf="movie.VideoFormat == 'BDRip'">
+          <span>Blu-Ray</span>
         </div>
-      </ng-container>
-    </div>
-  </section>
+      </div>
+    </ng-container>
+  </div>  
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Chargement en cours...">
     </ion-infinite-scroll-content>

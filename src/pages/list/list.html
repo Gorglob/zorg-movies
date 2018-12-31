@@ -7,17 +7,41 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
+<ion-content>  
+  <section class="section">
+    <h1>Nom Nom Gallery</h1>
+    <div class="grid">
+      <div class="item">        
       </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+      <div class="item ">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item ">        
+      </div>
+      <div class="item">        
+      </div>
+    </div>
+  
+  </section>
 </ion-content>
