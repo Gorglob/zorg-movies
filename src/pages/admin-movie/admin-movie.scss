@@ -1,0 +1,12 @@
+page-admin-movie {
+    .new-search ion-label {
+        display: flex;
+        align-items: center;
+        span {
+            padding-right: 10px;
+        }
+        input {
+            flex: 1;
+        }
+    }
+}

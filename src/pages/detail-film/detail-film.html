@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="secondary">
     <ion-title *ngIf="currentMovie">{{currentMovie.Titre}}</ion-title>
+    <ion-buttons end *ngIf="adminMode">
+        <button ion-button icon-only (click)="deleteMovie(currentMovie)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-buttons>    
   </ion-navbar>
 </ion-header>
 
@@ -49,13 +54,16 @@
           <span *ngSwitchCase="'1080p'">
               Mkv 1080p
           </span>
+          <span *ngSwitchCase="'2160p'">
+            Ultra HD
+          </span>
           <span *ngSwitchDefault>
             Autre
           </span>
           </ion-col>          
         </ion-row>
         <ion-row no-padding class="genres-film chemin-film">
-          <ion-col no-padding>Chemin du film : {{getFTPFolder(currentMovie.MovieDirectory)}}</ion-col>
+          <ion-col no-padding><span>Chemin du film : {{getFTPFolder(currentMovie.MovieDirectory)}}</span></ion-col>
         </ion-row>
       </div>
       <div class="synopsis">

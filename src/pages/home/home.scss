@@ -65,18 +65,22 @@ page-home {
 
         &__details {
             position: absolute;
-            z-index: 1;
-            padding: 2px;
+            z-index: 1;            
             color: #444;
-            background: #0a6f91;            
+            background: #0a6f91;
             color: white;
             text-align: center;
             text-shadow: 2px 2px 2px black;
             -webkit-box-shadow: 2px 2px 4px black;
             box-shadow: 2px 2px 4px black;
-            bottom: 8px;
-            margin: 0px 4px;
-            width: calc(100% - 8px);
+            width: 100%;
+            transform: rotate(45deg);
+            top: 10%;
+            right: -30%;
+
+            &.ultra-hd{
+                background : color($colors, light);
+            }
         }
     }
 

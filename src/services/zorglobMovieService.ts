@@ -10,8 +10,8 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ZorglobMovieService {
+    
     private moviessUrl: string;
-    //private moviessUrl: string;
     //private moviessUrl = 'http://gorglob.synology.me:91/api/movies'; //URL to web api
     //private moviessUrl = 'http://localhost:925/api/movies'; //URL to web api
     //private moviessUrl = 'http://localhost:57685/api/movies'; //URL to web api
@@ -19,23 +19,23 @@ export class ZorglobMovieService {
     //private moviessUrl = 'http://localhost:57685/api/movies'
     //private headers = new Headers({ 'Content-Type': 'application/json' });
 
-    constructor(private http: Http, private zorglobConfigService:ZorglobConfigService) { 
+    constructor(private http: Http, private zorglobConfigService: ZorglobConfigService) {
         //window.location.hostname.indexOf("int-maestro")        
         //console.info("HOST", this.moviessUrl);
-        this.moviessUrl = zorglobConfigService.getApiUrl("movies");
+        this.moviessUrl = this.zorglobConfigService.getApiUrl("movies");
     }
 
-    getMovies(pageSize: number, pageIndex: number):Promise<Movie[]>{
+    getMovies(pageSize: number, pageIndex: number): Promise<Movie[]> {
         return this.http.get(this.moviessUrl, {
             params: {
                 pageSize,
                 pageIndex
             }
         }).toPromise()
-        .then(response => response.json() as Movie[]);
+            .then(response => response.json() as Movie[]);
     }
 
-    getMoviesFromTitle(title: string, pageSize: number, pageIndex: number):Promise<Movie[]>{
+    getMoviesFromTitle(title: string, pageSize: number, pageIndex: number): Promise<Movie[]> {
         return this.http.get(this.moviessUrl, {
             params: {
                 pageSize,
@@ -43,10 +43,10 @@ export class ZorglobMovieService {
                 title
             }
         }).toPromise()
-        .then(response => response.json() as Movie[]);
+            .then(response => response.json() as Movie[]);
     }
 
-    getMoviesFromPerson(person: string, pageSize: number, pageIndex: number):Promise<Movie[]>{
+    getMoviesFromPerson(person: string, pageSize: number, pageIndex: number): Promise<Movie[]> {
         return this.http.get(this.moviessUrl, {
             params: {
                 pageSize,
@@ -54,10 +54,10 @@ export class ZorglobMovieService {
                 person
             }
         }).toPromise()
-        .then(response => response.json() as Movie[]);
+            .then(response => response.json() as Movie[]);
     }
 
-    getMoviesFromGenre(genre: string, pageSize: number, pageIndex: number, sortName: string, asc: boolean):Promise<Movie[]>{
+    getMoviesFromGenre(genre: string, pageSize: number, pageIndex: number, sortName: string, asc: boolean): Promise<Movie[]> {
         return this.http.get(this.moviessUrl + "/genre", {
             params: {
                 pageSize,
@@ -67,11 +67,11 @@ export class ZorglobMovieService {
                 asc
             }
         }).toPromise()
-        .then(response => response.json() as Movie[]);
+            .then(response => response.json() as Movie[]);
     }
 
-    getMoviesSorted(pageSize: number, pageIndex: number, sortName: string, asc: boolean):Promise<Movie[]>{
-        console.info("getMoviesSorted");
+    getMoviesSorted(pageSize: number, pageIndex: number, sortName: string, asc: boolean): Promise<Movie[]> {
+        console.info("getMoviesSorted", this.moviessUrl);
         return this.http.get(this.moviessUrl, {
             params: {
                 pageSize,
@@ -80,10 +80,10 @@ export class ZorglobMovieService {
                 asc
             }
         }).toPromise()
-        .then(response => response.json() as Movie[]);
+            .then(response => response.json() as Movie[]);
     }
 
-    getNewMovies(pageSize: number, pageIndex: number, lastDate: string):Promise<Movie[]>{
+    getNewMovies(pageSize: number, pageIndex: number, lastDate: string): Promise<Movie[]> {
         return this.http.get(this.moviessUrl, {
             params: {
                 pageSize,
@@ -91,7 +91,7 @@ export class ZorglobMovieService {
                 lastDate
             }
         }).toPromise()
-        .then(response => response.json() as Movie[]);
+            .then(response => response.json() as Movie[]);
     }
     /*getHeroesSlowly(): Promise<Hero[]> {
         return new Promise<Hero[]>(resolve =>

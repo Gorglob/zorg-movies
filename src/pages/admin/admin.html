@@ -1,0 +1,108 @@
+<!--
+  Generated template for the AdminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>Admin</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-card color="secondary">
+        <ion-card-header>
+          Suppression des films
+        </ion-card-header>
+        <ion-card-content no-padding>
+          <ion-list>
+            <ion-item>
+                <ion-label>Mode admin</ion-label>
+                <ion-toggle color="secondary" slot="end" [(ngModel)]="adminMode" (ionChange)="toggleAdminMode(adminMode)"></ion-toggle>
+            </ion-item>
+          </ion-list>
+    
+        </ion-card-content>
+      </ion-card>
+  <ion-card color="secondary">
+    <ion-card-header>
+      Mise à jour de la base de données
+    </ion-card-header>
+    <ion-card-content no-padding>
+      <ion-list>
+        <ion-item>
+          <button ion-button (click)="updateBdd()" [disabled]="!password || password.length === 0" color="danger">Démarrer
+            la mise à jour</button>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card color="secondary">
+    <ion-card-header>
+      Lister des films non repertoriés
+    </ion-card-header>
+    <ion-card-content no-padding>
+      <ion-list>
+        <ion-item>
+          <button ion-button (click)="getUnfoundMovies()" [disabled]="!password || password.length === 0" color="danger">Obtenir
+            la liste</button>
+        </ion-item>
+      </ion-list>
+      <!-- <ion-list *ngIf="movies">
+        <button ion-item *ngFor="let movie of movies" (click)="searchMovie(movie.MovieTitle)">
+          {{ movie.MovieTitle }} ({{ movie.ProductionYear}})
+        </button>
+      </ion-list> -->
+      <ion-list *ngIf="movies" class="movie-list">
+        <ion-item *ngFor="let movie of movies" (click)="searchMovie(movie)" class="movie-item">
+          {{ movie.MovieTitle }}
+          <p>({{ movie.ProductionYear}})</p>
+          <p>({{ movie.MovieDirectory}})</p>
+          <ion-icon *ngIf="!movie.updating" name="search" item-end></ion-icon>
+          <ion-spinner *ngIf="movie.updating"></ion-spinner>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card color="secondary">
+    <ion-card-header>
+      Lister des films en double
+    </ion-card-header>
+    <ion-card-content no-padding>
+      <ion-list>
+        <ion-item>
+          <button ion-button (click)="getDoublons()" [disabled]="!password || password.length === 0" color="danger">Obtenir
+            la liste</button>
+        </ion-item>
+      </ion-list>
+      <!-- <ion-list *ngIf="movies">
+        <button ion-item *ngFor="let movie of movies" (click)="searchMovie(movie.MovieTitle)">
+          {{ movie.MovieTitle }} ({{ movie.ProductionYear}})
+        </button>
+      </ion-list> -->
+      <ng-container *ngIf="doublons">
+        <ion-card color="light" *ngFor="let doublon of doublons">
+          <ion-card-header>
+            {{doublon.Movie.MovieTitle}}
+          </ion-card-header>
+          <ion-card-content no-padding>
+            <div class="doublon-item" *ngFor="let file of doublon.Files" (click)="deleteMovie(doublon, file)">
+              <div class="item-content">
+                  <p>{{ displayOnlyFileName(file) }}</p>
+              </div>
+              <div class="actions">
+                  <ion-icon *ngIf="!doublon.deleting && !doublon.error" name="trash" item-end></ion-icon>
+                  <ion-spinner *ngIf="doublon.deleting"></ion-spinner>
+                  <ion-icon *ngIf="doublon.error" name="alert" item-end></ion-icon>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

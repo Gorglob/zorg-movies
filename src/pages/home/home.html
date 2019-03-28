@@ -35,6 +35,9 @@
         <div class="item__details" *ngIf="movie.VideoFormat == 'BDRip'">
           <span>Blu-Ray</span>
         </div>
+        <div class="item__details ultra-hd" *ngIf="movie.VideoFormat == '2160p'">
+          <span>Ultra HD</span>
+        </div>
       </div>
     </ng-container>
   </div>  

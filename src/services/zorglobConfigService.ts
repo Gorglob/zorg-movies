@@ -18,6 +18,12 @@ export class ZorglobConfigService {
     //private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) {
+        if (localStorage.getItem(ZORG_CONSTANTS.DEFAULT_API_URL)) {
+            this.ApiUrl = localStorage.getItem(ZORG_CONSTANTS.DEFAULT_API_URL);
+        }
+        else {
+            this.ApiUrl = "http://gorglob.synology.me:91";
+        }
     }
 
     getGenres(): Promise<DescriptionItem[]> {
@@ -56,41 +62,52 @@ export class ZorglobConfigService {
         }
     }
 
-    getApiUrl(apiType : string) {
+    getApiUrl(apiType: string) {
         switch (apiType) {
+            case "admin":
             case "config":
-                return this.ApiUrl + "/api/admin";                
+                return this.ApiUrl + "/api/admin";
             default:
                 return this.ApiUrl + "/api/movies";
         }
     }
 
-    initApiUrls(): Promise<boolean> {
-        //On détermine s'il faut appeler l'ulr local ou distante (utile quand on est en local à la maison)
-        let urlTest1: string = 'http://gorglob.synology.me:91'; //URL to web api
-        let urlTest2: string = 'http://zorg-serv2012:925'; //URL to web api
-        
-        if(localStorage.getItem(ZORG_CONSTANTS.DEFAULT_API_URL)) {
-            this.ApiUrl = localStorage.getItem(ZORG_CONSTANTS.DEFAULT_API_URL);
-            return Promise.resolve(true);
-        }
-        else {
-            return this.http.get(urlTest1).toPromise().then(
-                (response) => {
-                    this.ApiUrl = urlTest1;
-                    localStorage.setItem(ZORG_CONSTANTS.DEFAULT_API_URL, urlTest1);
-                    return response.ok;
-                }
-            ).catch((error) => {
-                return this.http.get(urlTest2).toPromise().then(
-                    (response) => {
-                        this.ApiUrl = urlTest2;
-                        localStorage.setItem(ZORG_CONSTANTS.DEFAULT_API_URL, urlTest2);
-                        return response.ok;
-                    }).catch((error) => {
-                        return false;
-                    });
-            });
-        }
+    isAdmin() : boolean{
+        let adminMode = JSON.parse(localStorage.getItem(ZORG_CONSTANTS.ADMIN_MODE)) as boolean;
+        return adminMode || false;
     }
+
+    getPassword() : string {
+        return JSON.parse(localStorage.getItem(ZORG_CONSTANTS.ADMIN_PWD)) as string;        
+    }
+
+    // initApiUrls(): Promise<boolean> {
+    //     //On détermine s'il faut appeler l'ulr local ou distante (utile quand on est en local à la maison)
+    //     // let urlTest1: string = 'http://gorglob.synology.me:91'; //URL to web api
+    //     let urlTest1: string = 'http://localhost:57685'; //URL to web api
+    //     let urlTest2: string = 'http://zorg-serv2012:925'; //URL to web api
+
+    //     if (localStorage.getItem(ZORG_CONSTANTS.DEFAULT_API_URL)) {
+    //         this.ApiUrl = localStorage.getItem(ZORG_CONSTANTS.DEFAULT_API_URL);
+    //         return Promise.resolve(true);
+    //     }
+    //     else {
+    //         return this.http.get(urlTest1).toPromise().then(
+    //             (response) => {
+    //                 this.ApiUrl = urlTest1;
+    //                 localStorage.setItem(ZORG_CONSTANTS.DEFAULT_API_URL, urlTest1);
+    //                 return response.ok;
+    //             }
+    //         ).catch((error) => {
+    //             return this.http.get(urlTest2).toPromise().then(
+    //                 (response) => {
+    //                     this.ApiUrl = urlTest2;
+    //                     localStorage.setItem(ZORG_CONSTANTS.DEFAULT_API_URL, urlTest2);
+    //                     return response.ok;
+    //                 }).catch((error) => {
+    //                     return false;
+    //                 });
+    //         });
+    //     }
+    // }
 }

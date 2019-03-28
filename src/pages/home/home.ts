@@ -1,3 +1,4 @@
+import { ErrorPage } from './../error/error';
 import { ZorglobConfigService } from './../../services/zorglobConfigService';
 import { DescriptionItem } from './../../dto/DescriptionItem';
 import { DetailFilmPage } from './../detail-film/detail-film';
@@ -126,7 +127,6 @@ export class HomePage implements OnInit {
   // }
 
   updateMoviesList(infiniteScroll?: InfiniteScroll) {
-    console.info("updateMoviesList 1");
     this.showLoading();
     this.pageSize = 100;
 
@@ -152,6 +152,8 @@ export class HomePage implements OnInit {
           this.movies = value;
         }
         this.hideLoading();
+      }).catch((error) => {
+        this.goToErrorPage();
       });
     }
     else {
@@ -159,10 +161,14 @@ export class HomePage implements OnInit {
         //On tri par ordre croissant uniquement pour les Titres
         this.zorglobMovieService.getMoviesSorted(this.pageSize, this.pageIndex, this.selectedSortName, this.selectedSortName == ZORG_CONSTANTS.SORT_TITRE_VALUE).then((value) => {
           this.addMoviesToMoviesList(value, infiniteScroll);
+        }).catch((error) => {
+          this.goToErrorPage();
         });
       } else {
         this.zorglobMovieService.getMoviesFromGenre(this.selectedGenre, this.pageSize, this.pageIndex, this.selectedSortName, this.selectedSortName == ZORG_CONSTANTS.SORT_TITRE_VALUE).then((value) => {
           this.addMoviesToMoviesList(value, infiniteScroll);
+        }).catch((error) => {
+          this.goToErrorPage();
         });
       }
     }
@@ -239,5 +245,10 @@ export class HomePage implements OnInit {
       this.searchText = "";
       this.updateMoviesList();
     }
+  }
+
+  goToErrorPage(){
+    this.hideLoading();
+    this.navCtrl.push(ErrorPage);
   }
 }

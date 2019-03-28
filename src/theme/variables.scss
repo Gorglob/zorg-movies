@@ -1,8 +1,5 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
-.scroll-content {
-  background-color: black;
-}
 
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
@@ -51,7 +48,21 @@ $colors: (
   light:      #853e6a,
   dark:       #261a29,
   text:       #fff,
+  white:      #fff,    
 );
+
+.scroll-content {
+  background-color: black;
+}
+
+.toolbar-ios ion-title {
+  padding: 0px 110px 1px 40px!important;
+}
+
+.toast-color .toast-container {
+  background-color: color($colors, light);
+}
+
 
 
 // App iOS Variables

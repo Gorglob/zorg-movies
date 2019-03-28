@@ -1,3 +1,6 @@
+import { AdminMoviePage } from './../pages/admin-movie/admin-movie';
+import { ZorglobAdminService } from './../services/zorglobAdminService';
+import { AdminPage } from './../pages/admin/admin';
 
 import { ZorglobConfigService } from './../services/zorglobConfigService';
 import { DetailFilmPage } from './../pages/detail-film/detail-film';
@@ -23,11 +26,15 @@ import { PopoverMenuComponent } from '../components/popover-menu/popover-menu';
     ListPage,
     PopoverMenuComponent,
     DetailFilmPage,
-    ErrorPage
+    ErrorPage,
+    AdminPage,
+    AdminMoviePage,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: '',
+    }),
     HttpModule,
   ],
   bootstrap: [IonicApp],
@@ -37,14 +44,17 @@ import { PopoverMenuComponent } from '../components/popover-menu/popover-menu';
     ListPage,
     PopoverMenuComponent,
     DetailFilmPage,
-    ErrorPage
+    ErrorPage,
+    AdminPage,
+    AdminMoviePage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ZorglobMovieService,
-    ZorglobConfigService
+    ZorglobConfigService,
+    ZorglobMovieService,    
+    ZorglobAdminService
   ]
 })
 export class AppModule {}

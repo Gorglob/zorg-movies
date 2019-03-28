@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color="secondary">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Fermer</button>
+    </ion-buttons>
+    <ion-title ng-if="movie2Update">{{movie2Update.MovieTitle}} ({{movie2Update.ProductionYear}})</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list radio-group *ngIf="movies" [(ngModel)]="selectedMovie">
+    <ion-list-header>
+      Choix du film
+    </ion-list-header>
+    <ion-item *ngFor="let movie of movies">
+      <ion-thumbnail item-start>
+        <img *ngIf="movie.poster_path" [src]="getImgPath(movie.poster_path)">
+        <img *ngIf="!movie.poster_path" src="./assets/imgs/movie.jpg">
+      </ion-thumbnail>
+      <ion-label>
+        <p>{{movie.original_title}}</p>
+        <p>{{movie.title}}</p>
+        <p>{{movie.release_date | date :'dd/MM/yyyy'}}</p>
+      </ion-label>
+      <ion-radio checked="false" [value]="movie.id"></ion-radio>
+    </ion-item>
+    <ion-item class="new-search">
+      <span>Nouvelle Recherche</span>
+      <input type="text" [(ngModel)]="newSearch"/>
+      <button ion-button (click)="newSearchMovie()" color="danger">Chercher</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="updateMovie()" [disabled]="!selectedMovie" color="danger">Valider</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -6,3 +6,5 @@ export const GENRE_TOUS = "Tous";
 export const DEFAULT_SORT_NAME = "Nouveautés";
 export const SORT_TITRE_VALUE = "Titre";
 export const DEFAULT_API_URL = "defaultApiUrl";
+export const ADMIN_MODE = "mode";
+export const ADMIN_PWD = "modePwd";
